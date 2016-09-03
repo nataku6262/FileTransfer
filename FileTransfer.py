@@ -16,12 +16,14 @@ def bubble(bad_list):
                 bad_list[i], bad_list[i+1] = bad_list[i+1], bad_list[i]
 
 def MoveFile():
+    F = os.listdir(directory)
+    S = []
     for L in F:
         S.append(L)
 
     bubble(S)
 
-    n = 17
+    n = 1
     for i in S:
         if n<10:
             name = +str(n)+'.mp4'
