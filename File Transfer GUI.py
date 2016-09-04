@@ -1,10 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
-import shutil, os
+import os, shutil
 
-
-
-#Sorting Algorithm
+##Sort Function##
 
 def bubble(bad_list):
     length = len(bad_list) - 1
@@ -15,53 +13,45 @@ def bubble(bad_list):
         for i in range(length):
             if bad_list[i] > bad_list[i+1]:
                 sorted = False
-                bad_list[i], bad_list[i+1] = bad_list[i+1], bad_list[i]    
+                bad_list[i], bad_list[i+1] = bad_list[i+1], bad_list[i]
 
+##File Transfer Function##
 
-def MoveFile():
-    print (directory)
-    F = os.listdir(directory)
+def File_Transfer():
+    folder = os.listdir(directory.get())
+    source = directory.get()
+    newFolder = newLocation.get()
+    fileName = newName.get()
+    extn = fileExtension.get()
+
     S = []
-    for L in F:
+    for L in folder:
         S.append(L)
-    T = os.listdir(directory)
-    S=[]
-
-    for L in T:
-        S.append(L)
-    
     bubble(S)
-    return S
-    #Pop Up Window - needs to be moved below next batch of ## test
+
+    n = 1
+    for i in S:
+        if n < 10:
+            name = fileName[:-1]+str(n) + '.' + str(extn)
+        else:
+            name = fileName[:-2]+str(n) + '.' + str(extn)
+
+        shutil.copy (str(source) + '\\' + str(i), newFolder + '\\' + name)
+        n += 1
+
     popup=tk.Tk()
-    popup.wm_title ("File List")
-    label = ttk.Label(popup, text = S, font=Font)
+    popup.wm_title ("In Progress")
+    label = ttk.Label(popup, text ='Trasferring files...', font=FONT)
     label.pack()
     B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
     B1.pack()
-    
     popup.mainloop()
 
-##    n = 1
-##    for i in S:
-##        if n<10:
-##            name = newName[:-1] +str(n)+ fileExt
-##        else:
-##            name = newName[:-2] +str(n)+ fileExt
-##        shutil.copy (str(directory) + '\\' + str(i), newLocation +'\\' + name + ','+fileExtension)
-##        os.unlink(source + '\\' + i)
-##        print ('file' + str(n))
-##        n+=1
 
-########
-##GUI##
-########
-
-LARGE_FONT = ('Calibri', 12)
+#######GUI########
+####Class Framework####
 FONT = ('Calibri', 10)
-
-    
-##Button Command##    
+LARGE_FONT = ('Calibri', 12)
 
 class FileTransfer(tk.Tk):
 
@@ -78,14 +68,11 @@ class FileTransfer(tk.Tk):
 
         self.frames = {} 
 
+        frame = StartPage (container, self)
 
-        for F in (StartPage, FirstPage):
+        self.frames[StartPage] = frame
 
-            frame = F(container, self) 
-
-            self.frames[F] = frame
-
-            frame.grid (row=0, column=0, sticky='nsew')
+        frame.grid (row=0, column=0, sticky='nsew')
 
         self.show_frame(StartPage)
 
@@ -93,7 +80,6 @@ class FileTransfer(tk.Tk):
 
         frame= self.frames[cont]
         frame.tkraise()
-
 
 class StartPage(tk.Frame):
 
@@ -109,44 +95,30 @@ class StartPage(tk.Frame):
         global directory
         directory = ttk.Entry(self)
         directory.grid(row=2, column=2, columnspan=2)
-        directory = directory.get()
 
         newLocation_Label = ttk.Label (self, text='New Location', font=FONT)
         newLocation_Label.grid (row=3, column=1, columnspan=1, padx=5, pady=5)
 
+        global newLocation
         newLocation = ttk.Entry(self)
         newLocation.grid(row=3, column=2, columnspan=1, padx=5, pady=5)
 
         newName_Label = ttk.Label (self, text='New Name', font=FONT)
         newName_Label.grid (row=4, column=1, columnspan=1, padx=5, pady=5)
 
+        global newName
         newName = ttk.Entry(self)
         newName.grid(row=4, column=2, columnspan=1, padx=5, pady=5)
 
         fileExtension_Label = ttk.Label (self, text='File Extension', font=FONT)
         fileExtension_Label.grid (row=5, column=1, columnspan=1)
-        
+
+        global fileExtension
         fileExtension = ttk.Entry(self)
         fileExtension.grid(row=5, column=2, columnspan=2)
 
-        submit = ttk.Button (self, text='Submit', command=MoveFile)
+        submit = ttk.Button (self, text='Submit', command = File_Transfer)
         submit.grid(row=6, column=2, pady = 15)
-
-##        global newLocation
-##        global newName
-##        global fileExtension
-        
-class FirstPage(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        
-        label = tk.Label (self, text='Start Page', font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
-
-        label_1 = tk.Label (self, text='Directory Path', font=FONT)
-        label_1.pack (pady=10, padx=10)
-
 
 
 app = FileTransfer()
