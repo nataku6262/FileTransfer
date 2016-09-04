@@ -23,4 +23,7 @@ Old File Name  -->   New File Name
 
 Screen 3: (2.0 ammendment)
 
-List last file transferred OR Percentage complete			
+List last file transferred OR Percentage complete	
+
+Button Branch -
+Make submit button call on a function using the field entry data. - 15:59 28/08/2016		

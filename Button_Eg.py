@@ -5,19 +5,28 @@ norm_font = ('Calibri', 12)
 
 
 
-def popupmsg():
+def popupmsg(msg):
     popup=tk.Tk()
-    popup.wm_title ("Testing Function Call")
-    label = ttk.Label(popup, text = button_test, font=norm_font)
+    popup.wm_title ("Testisng Function Call")
+    label = ttk.Label(popup, text = directory, font=norm_font)
     label.pack()
     B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
     B1.pack()
     popup.mainloop()
 
 #Button function is HERE!
+def message (field1):
+    return field1
+
+
 def button_test():
-    print (directory.get())
-    
+    popup=tk.Tk()
+    popup.wm_title (message(directory))
+    label = ttk.Label(popup, text = directory, font=norm_font)
+    label.pack()
+    B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
 
 class ButtonTestPage(tk.Tk):
 
@@ -67,9 +76,9 @@ class StartPage(tk.Frame):
         label_1 = ttk.Label (self, text='Directory Path')
         label_1.grid (row=2, column=1, columnspan=1)
 
-        global directory
         directory = ttk.Entry(self)
         directory.grid(row=2, column=2, columnspan=1, sticky = 'e')
+        global directory
     #Button function is called here under command.
 
         submit = ttk.Button (self, text='Submit', command=button_test)
