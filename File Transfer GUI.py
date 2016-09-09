@@ -3,8 +3,19 @@
 import tkinter as tk
 from tkinter import ttk
 import os, shutil
+from send2trash import *
 
 ##Sort Function##
+
+def Recycle():
+    send2trash(directory.get())
+    popup=tk.Tk()
+    popup.wm_title ("Folder Deleted")
+    label = ttk.Label(popup, text ='Folder Deleted!', font=LARGE_FONT)
+    label.pack()
+    B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
+    B1.pack()
+    
 
 def bubble(bad_list):
     length = len(bad_list) - 1
@@ -47,6 +58,8 @@ def File_Transfer():
     label.pack()
     B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
     B1.pack()
+    B2 = ttk.Button (popup, text='Delete Folder', command = Recycle)
+    B2.pack()
     popup.mainloop()
 
 def File_Rename():
