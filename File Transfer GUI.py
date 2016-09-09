@@ -49,6 +49,35 @@ def File_Transfer():
     B1.pack()
     popup.mainloop()
 
+def File_Rename():
+    folder = os.listdir(directory.get())
+    source = directory.get()
+    fileName = newName.get()
+    extn = fileExtension.get()
+
+    S = []
+    for L in folder:
+        S.append(L)
+    bubble(S)
+
+    n = 1
+    for i in S:
+        if n < 10:
+            name = fileName[:-1]+str(n) + '.' + str(extn)
+        else:
+            name = fileName[:-2]+str(n) + '.' + str(extn)
+
+        os.replace(str(source) +'\\'+ i, str(source) +'\\' + str(name))
+        n += 1
+    
+
+    popup=tk.Tk()
+    popup.wm_title ("Complete!")
+    label = ttk.Label(popup, text ='All Files Renamed.', font=LARGE_FONT)
+    label.pack()
+    B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
 
 #######GUI########
 ####Class Framework####
@@ -119,9 +148,11 @@ class StartPage(tk.Frame):
         fileExtension = ttk.Entry(self)
         fileExtension.grid(row=5, column=2, columnspan=2)
 
-        submit = ttk.Button (self, text='Submit', command = File_Transfer)
-        submit.grid(row=6, column=2, pady = 15)
+        rename = ttk.Button (self, text='Rename', command = File_Rename)
+        rename.grid(row=6, column=2, pady = 3)
 
+        transfer = ttk.Button (self, text='Transfer', command = File_Transfer)
+        transfer.grid(row=7, column=2, pady = 3)
 
 app = FileTransfer()
 app.mainloop()
