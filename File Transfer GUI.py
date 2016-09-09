@@ -1,3 +1,5 @@
+#! python3
+
 import tkinter as tk
 from tkinter import ttk
 import os, shutil
@@ -40,8 +42,8 @@ def File_Transfer():
         n += 1
 
     popup=tk.Tk()
-    popup.wm_title ("In Progress")
-    label = ttk.Label(popup, text ='Trasferring files...', font=FONT)
+    popup.wm_title ("Complete!")
+    label = ttk.Label(popup, text ='File transfer complete.', font=LARGE_FONT)
     label.pack()
     B1 = ttk.Button (popup, text='Ok', command = popup.destroy)
     B1.pack()
