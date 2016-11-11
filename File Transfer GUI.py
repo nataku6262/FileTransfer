@@ -73,7 +73,7 @@ def File_Rename():
         S.append(L)
     bubble(S)
 
-    n = 1
+    n = int(episodeNum.get())
     for i in S:
         if n < 10:
             name = fileName[:-1]+str(n) + '.' + str(extn)
@@ -154,18 +154,25 @@ class StartPage(tk.Frame):
         newName = ttk.Entry(self)
         newName.grid(row=4, column=2, columnspan=1, padx=5, pady=5)
 
-        fileExtension_Label = ttk.Label (self, text='File Extension', font=FONT)
-        fileExtension_Label.grid (row=5, column=1, columnspan=1)
+        episodeNum_Label = ttk.Label (self, text='Episode Number', font=FONT)
+        episodeNum_Label.grid (row=5, column=1, columnspan=1)
 
+        global episodeNum
+        episodeNum = ttk.Entry(self)
+        episodeNum.grid(row=5, column=2, columnspan=2)
+
+        fileExtension_Label = ttk.Label (self, text='File Extension', font=FONT)
+        fileExtension_Label.grid (row=6, column=1, columnspan=1, padx=5, pady=5)
+        
         global fileExtension
         fileExtension = ttk.Entry(self)
-        fileExtension.grid(row=5, column=2, columnspan=2)
+        fileExtension.grid(row=6, column=2, columnspan=2)
 
         rename = ttk.Button (self, text='Rename', command = File_Rename)
-        rename.grid(row=6, column=2, pady = 3)
+        rename.grid(row=7, column=2, pady = 3)
 
         transfer = ttk.Button (self, text='Transfer', command = File_Transfer)
-        transfer.grid(row=7, column=2, pady = 3)
+        transfer.grid(row=8, column=2, pady = 3)
 
 app = FileTransfer()
 app.mainloop()
